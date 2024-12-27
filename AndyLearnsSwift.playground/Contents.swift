@@ -1,25 +1,40 @@
 import Cocoa
 
-// Initiate a vartiable with "var" and a constant with "let". We can change variables, but we cannot change constants
+// Strings must start and end with double quotoes
+let actor = "Denzel Washington"
 
-var greeting = "Hello, playground"
+// Strings can contain punctuation, emojis, and other characters
+let fileName = "paris.jpg"
+let result = "🐶"
 
-var name = "Ted"
-name = "Rebecca"
-name = "Keeley"
+// Strings can contain quotes with backslash
+let quote = "Then he said, \"I'm sorry, I didn't mean to hurt you.\""
 
-let character = "Daphne"
+// Strings written across multiple lines must be denoted with triple quotes
+let movie = """
+We're
+the
+Millers
+"""
 
-var playerName = "Roy"
-print(playerName)
+// Read the length of the string with .count
+print(actor.count)
 
-playerName = "Dani"
-print(playerName)
+// Assign to constants work as well
+let length = actor.count
+print(length)
 
-playerName = "Sam"
-print(playerName)
+// Can switch contents to uppercase with the uppercased() function
+print(actor.uppercased())
 
-let managerName = "Michael Scott"
-let dogBreed = "Samoyed"
-let meaningOfLife = "How many roads must a man walk down"
+// Can switch contents to lowercase with the lowercased() function
+print(actor.lowercased())
 
+// Can check if a string starts with a speciffic substring
+print(actor.hasPrefix("Denzel"))
+
+// Can check if a string ends with a specific substring
+print(actor.hasSuffix("Washington"))
+
+// These two are case sensitive
+print(actor.hasPrefix("denzel"))
