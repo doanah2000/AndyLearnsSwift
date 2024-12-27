@@ -1,40 +1,27 @@
 import Cocoa
 
-// Strings must start and end with double quotoes
-let actor = "Denzel Washington"
+// Swift ranges numbers past quintillions
+let score = 10
 
-// Strings can contain punctuation, emojis, and other characters
-let fileName = "paris.jpg"
-let result = "🐶"
+// Break up large numbers with _, Swift ignores them
+let reallyBig = 100_000_000
+let weirdOneMillion = 1_00_00_00
 
-// Strings can contain quotes with backslash
-let quote = "Then he said, \"I'm sorry, I didn't mean to hurt you.\""
+// Can create integers from arithmetic
+let lowerScore = score - 1
+let higherScore = score + 1
+let doubleScore = score * 2
+let halfScore = score / 2
+let squareScore = score * score
 
-// Strings written across multiple lines must be denoted with triple quotes
-let movie = """
-We're
-the
-Millers
-"""
+// Swift has compound assignment operators
+var counter = 10
+counter += 5
+print(counter)
 
-// Read the length of the string with .count
-print(actor.count)
+// We can find out if an integer is a multiple off another integer
+let number = 1200
+print(number.isMultiple(of: 10))
 
-// Assign to constants work as well
-let length = actor.count
-print(length)
-
-// Can switch contents to uppercase with the uppercased() function
-print(actor.uppercased())
-
-// Can switch contents to lowercase with the lowercased() function
-print(actor.lowercased())
-
-// Can check if a string starts with a speciffic substring
-print(actor.hasPrefix("Denzel"))
-
-// Can check if a string ends with a specific substring
-print(actor.hasSuffix("Washington"))
-
-// These two are case sensitive
-print(actor.hasPrefix("denzel"))
+// We can call this with a number directly
+print(1200.isMultiple(of: 10))
