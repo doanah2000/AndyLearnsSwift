@@ -1,5 +1,7 @@
 import Cocoa
 
+// Initiate a vartiable with "var" and a constant with "let". We can change variables, but we cannot change constants
+
 var greeting = "Hello, playground"
 
 var name = "Ted"
