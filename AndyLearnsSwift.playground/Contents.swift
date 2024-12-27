@@ -1,27 +1,34 @@
 import Cocoa
 
-// Swift ranges numbers past quintillions
-let score = 10
+// Swift considers floating point numbers as doubles. Thhere is a bit of inaccuracy in doubles
+let number = 0.1 + 0.2
+print(number)
 
-// Break up large numbers with _, Swift ignores them
-let reallyBig = 100_000_000
-let weirdOneMillion = 1_00_00_00
+// Cannot mix ints and doubles. Must explicitly treat either the int as a double or double as an int
+let a = 1
+let b = 2.0
+let c = a + Int(b)
 
-// Can create integers from arithmetic
-let lowerScore = score - 1
-let higherScore = score + 1
-let doubleScore = score * 2
-let halfScore = score / 2
-let squareScore = score * score
+let d = 1
+let e = 2.0
+let f = Double(d) + e
 
-// Swift has compound assignment operators
-var counter = 10
-counter += 5
-print(counter)
+let double1 = 3.1
+let double2 = 3131.3131
+let doublle3 = 3.0
+let int1 = 3
 
-// We can find out if an integer is a multiple off another integer
-let number = 1200
-print(number.isMultiple(of: 10))
+// Once Swift decides on the data type of a constant or variable, it must be the same as long as it exists
+var name = "Nicolas Cage"
+name = "John travolta"
+//name = 57 - cannot do this
 
-// We can call this with a number directly
-print(1200.isMultiple(of: 10))
+// Doubles have the same compound assignment functionality, putting numbers here imply they are doubles
+var rating = 5.0
+rating *= 2
+rating /= 3
+rating += 4
+rating -= 5
+
+// Swift lets us use doubles and CGFloats interchangeably
+
