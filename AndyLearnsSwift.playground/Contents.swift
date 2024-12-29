@@ -1,53 +1,60 @@
 import Cocoa
 
-/// In Swift, we store ordered data in arrays
-var beatles: Array<String> = ["John", "Paul", "George", " Ringo"]
-let numbers: Array<Int> = [1, 2, 3, 4, 5]
-var temperatures: Array<Double> = [37.0, 38.0, 39.0, 40.0, 41.0]
+/// Reading items from index can be problematic and dangerous, since fields would not be explicit and if arrays are variable the index may no longer be valid. Solution to this is Dictionaries
+let employee = [
+    "name": "Taylor Swift",
+    "job": "Singer",
+    "location": "Nashville"
+]
+/// Fields on the left are keys, fields on right are values.
+print(employee["name"])
+print(employee["job"])
+print(employee["location"])
 
-/// We ask for data by index (0-index), make sure the index always exists
-print(beatles[0])
-print(numbers[1])
+/// Key may not exist:
+print(employee["age"]) // prints "nil"
 
-/// If array is variable, it can be modified after. Arrays can only store data off uniform type (type safety)
-beatles.append("Liverpool")
-// beatles.append(2) will not work
+/// When you access data like this, the result may or may not be empty, similar to Java optionals
+/// When dealing with dictionaries, we can p[rovide a default value if keys do not exist
+print(employee["name", default: "Unknown"])
+print(employee["job", default: "Unknown"])
+print(employee["location", default: "Unknown"])
+print(employee["age", default: "Unknown"])
 
-/// We can specify array type on initialization
-var scores = Array<Int>()
-scores.append(100)
-scores.append(80)
-scores.append(90)
-print(scores[1])
+/// We can use other data types as much as possible
+let hasGraduated: [String: Bool] = [
+    "Tim": false,
+    "Jake": true,
+    "Taylor": true
+]
 
-var albums: Array<String> = Array<String>()
-albums.append("Folklore")
-albums.append("Fearless")
-albums.append("Red")
+let olympics: Dictionary<Int, String> = [
+    2012: "London",
+    2016: " Rio",
+    2020: "Tokyo"
+]
 
-/// Can initialize arrays with [], but type must be explicit
-//var artists = [] not allowed
-var artists: Array<String> = []
-var artists2 = [String]()
-var artists3 = ["John"]
+print(olympics[2012, default: "Unknown"])
 
-/// Can use count to count number of items in array
-print(albums.count)
+/// Can initialize empty dictionary and "put" key--value pairs
+var heights = [String: Int]()
+heights["Tim"] = 178
+heights["Jake"] = 180
+heights["Taylor"] = 179
+print(heights)
 
-/// .remove(at: <index>)
-albums.remove(at: 1)
-print(albums.count)
+/// Dictionaries do not allow duplicate keys. If key exists, value is overwritten
+print(heights["Tim", default: 0])
+heights["Tim"] = 181
+print(heights["Tim", default: 0])
+
+/// .count
+print(heights.count)
+
+/// .removeValue
+heights.removeValue(forKey: "Tim")
+print(heights["Tim", default: 0])
 
 /// .removeAll
-albums.removeAll()
-print(albums.count)
-
-/// .contains
-print(beatles.contains("John"))
-
-/// .sorted: for strings it will be alphanumerically, ints will be ascending order
-print(beatles.sorted())
-
-/// .reversed will reverse the array, but identify the collection as reversed
-print(beatles.reversed())
-
+heights.removeAll()
+print(heights.count)
