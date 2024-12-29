@@ -1,28 +1,27 @@
 import Cocoa
 
-/// Sets work similarly to arrays except they are unordered and items cannot be duplicated
-var actors: Set<String> = [
-    "Denzel Washington",
-    "Tom Cruise",
-    "Brad Pitt",
-    "Leonardo DiCaprio",
-    "Will Smith",
-]
-print(actors)
+/// Enums: set of named values we can create and use in code. We can define a whole new type with only specific values, whichh are safer and faster to work with the variable strings
+enum Weekday {
+    case Monday
+    case Tuesday
+    case Wednesday
+    case Thursday
+    case Friday
+}
 
-var artists: Set<String> = Set([
-    "Beyoncé",
-    "Justin Timberlake",
-    "Ariana Grande",
-])
-print(artists)
+var day = Weekday.Monday
+day = Weekday.Tuesday
+day = Weekday.Wednesday
+day = Weekday.Thursday
+day = Weekday.Friday
+// Weekday.January will yell at us
+print(day)
 
-/// .insert
-actors.insert("Tom Hanks")
-artists.insert("Rihanna")
-print(actors)
-print(artists)
+/// Only need to write case once, can also skip the Enum. notation after the first call
+enum Months {
+    case January, February, March, April, May, June, July, August, September, October, November, December
+}
 
-/// Sets have no order, but calling .contains is much more optimized for sets than for arrays. When running .sorted, returns a sorted array.
-let sortedActors: Array<String> = actors.sorted()
-print(sortedActors)
+var month = Months.January
+month = .February
+print(moonth)
