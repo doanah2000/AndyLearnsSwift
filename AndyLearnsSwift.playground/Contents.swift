@@ -1,27 +1,39 @@
 import Cocoa
 
-/// Enums: set of named values we can create and use in code. We can define a whole new type with only specific values, whichh are safer and faster to work with the variable strings
-enum Weekday {
-    case Monday
-    case Tuesday
-    case Wednesday
-    case Thursday
-    case Friday
+/// Swifft by default uses type inference when type is not explicitly annotated
+let surname = "Swift"
+var score = 0
+
+/// Type annotation lets us to be specific about the data and if we initiate a constant or variable with empty data
+let surnameAnnotated: String = "Swift"
+var scoreAnnotated: Double = 0 // Without Double, Swift would infer this as an int
+
+/// We have more examples of type annotation
+var intEx: Int = 0
+var doubleEx: Double = 0
+var stringEx: String = ""
+var boolEx: Bool = false
+var arrayEx: [Int] = []
+var dictionaryEx: [String: Int] = [:]
+var setEx: Set<Int> = []
+
+/// Type annotations are not always needed when non-empty data is being defined
+
+/// Enums can be a little different annotation-wise as we are essentially creating new types. The values of enums have the same type annotation as the enum itself
+
+enum UIStyle {
+    case light, dark, system
 }
 
-var day = Weekday.Monday
-day = Weekday.Tuesday
-day = Weekday.Wednesday
-day = Weekday.Thursday
-day = Weekday.Friday
-// Weekday.January will yell at us
-print(day)
+var style: UIStyle = .light
+style = .system
 
-/// Only need to write case once, can also skip the Enum. notation after the first call
-enum Months {
-    case January, February, March, April, May, June, July, August, September, October, November, December
-}
+/// Constants can be declared explicitly before the value is defined with type annotations
+let username: String
+username = "Swift"
+print(username)
 
-var month = Months.January
-month = .February
-print(moonth)
+/// Can constants be declared without the type annotation? No it cannot, Swift will complain that the type annotation is missing.
+//let gameScore
+//gameScore = 0
+//print(gameScore)
