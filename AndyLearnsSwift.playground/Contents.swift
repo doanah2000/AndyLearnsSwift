@@ -1,12 +1,19 @@
 import Cocoa
 
-/// Checkpoint 2: Array Processing
-/// - Create an array of Strings
-/// - Print the number of items in the array
-/// - Print the number of unique items in the array
+/// If Statements in Swifft are virtually the same as other languages. Note comparisons can only occur for matching data types. Combine conditions with && and ||
+var someCondition: Bool = true
 
-let brands: [String] = ["agv", "shoei", "scorpion", "revit", "agv", "nbt", "shoei"]
-print("The number of brands is \(brands.count).")
+if someCondition {
+  print("Do something")
+}
 
-let brandsUnique: Set<String> = Set(brands)
-print("The number of unique brands is \(brandsUnique.count).")
+
+/// If - else if - else
+let score = 85
+if score >= 90 {
+    print("You got an A")
+} else if score >= 80 {
+    print("You got an B")
+} else {
+    print("You did not get an A nor B")
+}
