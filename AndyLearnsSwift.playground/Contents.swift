@@ -1,36 +1,22 @@
 import Cocoa
 
-/// Swift makes it easy to do work a fixed number of times or once over each item in an iterable
+/// Swift also uses while loops, give a condition and Swift will loop until condition is false. Though it exists, it is less useful and common than a for loop
+var countdown = 10
+while countdown > 0 {
+    print("\(countdown)...")
+    countdown -= 1
+}
+print("Blastoff!")
 
-let platforms = ["iOS", "macOS", "tvOS", "watchOS"]
+/// Useful when we don't know how many times a loop will go around. Here is random int
+let id = Int.random(in: 1...1000)
+let amount = Double.random(in: 0...1)
 
-for os in platforms { // os is called the loop variable
-    print("Hello, \(os)!") // This is the loop body
-} // One cycle over this loop is called a loop iteration
+var roll = 0
 
-/// We can also loop over a fixed range of numbers, inclusive of both lower and upper bounds
-for i in 1...12 {
-    print("5 x \(i) = \(5 * i)")
+while roll != 20 {
+    roll = Int.random(in: 1...20)
+    print("I rolled a \(roll)")
 }
 
-/// We can also nest loops
-for i in 1...12 {
-    print("The \(i) times table")
-    for j in 1...12 {
-        print("   \(j) x \(i) = \(i * j)")
-    }
-    print() // This creates an empty line
-}
-
-/// We can create a range that counts up to upper bound, but excludes the upper bound. This is useful when looping for things such as arrays
-for i in 1..<12 {
-    print("Counting 1 up to 12: \(i)")
-}
-
-/// If we don't care about the loop variable, we can use an underscore
-var lyric = "Haters gonna"
-for _ in 1...5 {
-    lyric += " hate"
-}
-
-print(lyric)
+print("Critical hit!")
