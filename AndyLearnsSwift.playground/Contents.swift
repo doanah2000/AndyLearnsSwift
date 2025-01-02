@@ -1,31 +1,22 @@
 import Cocoa
 
-/// Swift gives us two ways to skip one or more items in a loop. Continue skips the remainder of the current iteration, while break exits the loop
+/// Checkpoint 3: FizzBuzz: Loop through each number from 1 through 100 and
+/// 1. If it's a multiple of 3, print Fizz
+/// 2. If it's a multiple of 5, print Buzz
+/// 3. If it's a multiple of 3 and 5, print FizzBuzz
+/// 4. Otherwise, just print the number
 
-/// Continue
-let filenames = ["me.jpg", "work.txt", "sophie.jpg"]
-
-for filename in filenames {
-    if !filename.hasSuffix("jpg") {
-        continue
+for number in 1...100 {
+    if number.isMultiple(of: 3) && number.isMultiple(of: 5) {
+        print("FizzBuzz")
     }
-    
-    print("Found picture: \(filename)")
-}
-
-/// Break
-
-let number1 = 4
-let number2 = 14
-var multiples = [Int]()
-
-for i in 1...100_000 {
-    if i.isMultiple(of: number1) && i.isMultiple(of: number2) {
-        multiples.append(i)
-        if multiples.count == 10 {
-            break
-        }
+    else if number.isMultiple(of: 3) {
+        print("Fizz")
+    }
+    else if number.isMultiple(of: 5) {
+        print("Buzz")
+    }
+    else {
+        print(number)
     }
 }
-
-print(multiples)
