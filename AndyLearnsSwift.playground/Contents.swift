@@ -1,22 +1,31 @@
 import Cocoa
 
-/// Swift also uses while loops, give a condition and Swift will loop until condition is false. Though it exists, it is less useful and common than a for loop
-var countdown = 10
-while countdown > 0 {
-    print("\(countdown)...")
-    countdown -= 1
-}
-print("Blastoff!")
+/// Swift gives us two ways to skip one or more items in a loop. Continue skips the remainder of the current iteration, while break exits the loop
 
-/// Useful when we don't know how many times a loop will go around. Here is random int
-let id = Int.random(in: 1...1000)
-let amount = Double.random(in: 0...1)
+/// Continue
+let filenames = ["me.jpg", "work.txt", "sophie.jpg"]
 
-var roll = 0
-
-while roll != 20 {
-    roll = Int.random(in: 1...20)
-    print("I rolled a \(roll)")
+for filename in filenames {
+    if !filename.hasSuffix("jpg") {
+        continue
+    }
+    
+    print("Found picture: \(filename)")
 }
 
-print("Critical hit!")
+/// Break
+
+let number1 = 4
+let number2 = 14
+var multiples = [Int]()
+
+for i in 1...100_000 {
+    if i.isMultiple(of: number1) && i.isMultiple(of: number2) {
+        multiples.append(i)
+        if multiples.count == 10 {
+            break
+        }
+    }
+}
+
+print(multiples)
