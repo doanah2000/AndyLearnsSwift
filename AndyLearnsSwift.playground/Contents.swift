@@ -1,20 +1,32 @@
 import Cocoa
 
-/// Functions are chunks of code carved from the main program then given a name to be referred elsewhere
+/// Functions offten pass data back
 
-func showWelcome() {
-    print("Welcome to my app!")
-    print("By default, this prints out a conversion")
-    print("chart from centimeters to inches, but you")
-    print("can also set a custom range if you want.")
+let root = sqrt(169) // 13 is now stored in root
+print(root)
+
+/// If we want to return our own value from a function, we'll need `-> type` before the open brace, and have the return keyword in the function body
+
+func rollDice() -> Int {
+    return Int.random(in: 1...6)
 }
 
-showWelcome() // This is known as the function call, or callsite
+let result = rollDice()
+print(result)
 
-func printTimesTables(number: Int) {
-    for i in 1...12 {
-        print("\(i) * \(number) = \(i * number)")
-    }
+/// Do two strings contain the same letters, regardless of order?
+/// Function should:
+///     Accept two string parameters
+///     Return true if their letters are the same
+
+/// When our function only has one line, we can remove the return keyword entirely.
+func containsSameLetters(firstString: String, secondString: String) -> Bool {
+    firstString.sorted() == secondString.sorted()
 }
 
-printTimesTables(number: 2)
+print(containsSameLetters(firstString: "Hello", secondString: "World"))
+
+/// If our func has no return value, we can use return by itself, forcing a function to exit immediately
+func printStuff() {
+    return
+}
