@@ -1,32 +1,40 @@
 import Cocoa
 
-/// Checkpoint 4: Write a function that accepts an integer from 1 through 10,000 and returns the integer square root of that number
-/// 1. You can't use the built-in sqrt() function or similar - you need to ffind the square root yourselff
-/// 2. If the number is less than 1 or greater than 10,000, you should throw an "out of bounds" error
-/// 3. You should only consider integer square roots - don't worry about a square root of 3 being 1.732, for example.
-/// 4. If you can't find the square root, throw a "no root" error
+/// We can also assign functions to variables and pass them into other functions
 
-enum squareRootError: Error {
-    case outOfBounds, noRoot
+func greetUser() {
+    print("Hi there!")
 }
 
-func findSquareRoot(_ number: Int) throws -> Int {
-    if number < 1 || number > 10_000 {
-        throw squareRootError.outOfBounds
+greetUser()
+var greetCopy = greetUser
+var greetCopyVerbose: () -> Void = greetUser
+greetCopy()
+
+/// We can skip creating a separate function and assign functionality directly to a constant or variable
+let sayHello = {
+    print("Hello!")
+}
+
+sayHello()
+
+let sayGoodbye = { (name: String) -> String in
+    "Goodbye, \(name)"
+}
+
+sayGoodbye("Taylor")
+
+/// Names of the data passed into the function are not part of its type
+func getUserData(for id: Int) -> String {
+    if id == 1989 {
+        return "Taylor Swift"
+    } else {
+        return "Anonymous"
     }
-    
-    for i in 1...100 {
-        if i * i == number {
-            return i
-        } else if i * i > number {
-            throw squareRootError.noRoot
-        }
-    }
-    return number // dummy return, since the potential square root is thrown once an integer squared is greater than the given number
 }
 
-do {
-    try print(findSquareRoot(100))
-} catch {
-    print("Error: \(error)")
-}
+let data: (Int) -> String = getUserData
+let user = data(1989) // Notice we don't call with `for`
+print(user)
+
+
