@@ -1,26 +1,40 @@
 import Cocoa
 
-/// Checkpooint 5:
-/// Your input is this:
-let luckyNumbers = [7, 4, 38, 21, 16, 15, 12, 33, 31, 49]
+/// Swifft structs let us create our own complex data types
 
-/// Your job is to:
-/// - Filter out even numbers
-/// - Sort array in ascending order
-/// - Map them to strings in the format "7 is a lucky number"
-/// - Print each element on a separate line
-/// - Without using temporary variables
-
-/// Solo function
-func printItemByLine(_ strarray: [String]) {
-	for item in strarray {
-		print(item)
+struct Album {
+	let title: String
+	let artist: String
+	let year: Int
+	
+	func printSummary() {
+		print("\(title) (\(year)) by \(artist)")
 	}
 }
 
-func printSortedLuckyOddNumbers(_ numbers: [Int], _ printFunc: ([String]) -> Void) {
-	printFunc(numbers.filter{ !$0.isMultiple(of: 2) }.sorted().map {"\($0) is a lucky number"})
+let red = Album(title: "Red", artist: "Taylor Swift", year: 2012)
+
+print(red.title)
+
+red.printSummary()
+
+/// We cannot directly change values in the struct, even if they are variables because there is a chance that if the struct is created as a constant, so will its attributes. Any functions editting data must be marked as mutating
+struct Employee {
+	let name: String
+	var vacationRemaining: Int
+	
+	mutating func takeVacation(days: Int) {
+		if vacationRemaining > days {
+			vacationRemaining -= days
+			print("I'm going on vacation!")
+			print("Days remaining: \(vacationRemaining)")
+		} else {
+			print("Oops!! There aren't enough days remaining.")
+		}
+	}
 }
 
-printSortedLuckyOddNumbers(luckyNumbers, printItemByLine)
-
+/// Swift now puts a restriction in place.
+let archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
+//archer.takeVacation(days: 5) we cannot do this
+print(archer.vacationRemaining)
