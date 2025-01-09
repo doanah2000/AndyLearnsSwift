@@ -64,5 +64,22 @@ archer.vacationTaken += 4
 archer.vacationRemaining = 5
 print(archer.vacationAllocated)
 
+/// Swift also has didSet and willSet keywords, which execute when a computed property is changed.
 
+struct App {
 
+	var contacts = [String]() {
+		willSet {
+			print("The old value is \(contacts)")
+			print("The new value will be \(newValue)")
+		}
+		
+		didSet {
+			print("There are now \(contacts.count) contacts")
+			print("The old value was \(oldValue)")
+		}
+	}
+}
+
+var app = App()
+app.contacts.append("Jake")
