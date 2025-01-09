@@ -83,3 +83,15 @@ struct App {
 
 var app = App()
 app.contacts.append("Jake")
+
+/// We can create custom initializer, but once we create our custom initializer, by default, Swift gets rid of the default initializer
+
+struct Foo {
+	var bar: Int
+	init(foobar: Int) {
+		self.bar = foobar
+	}
+}
+
+var fooo = Foo(foobar: 2)
+print(fooo.bar)
