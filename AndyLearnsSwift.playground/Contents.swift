@@ -35,6 +35,34 @@ struct Employee {
 }
 
 /// Swift now puts a restriction in place.
-let archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
-//archer.takeVacation(days: 5) we cannot do this
-print(archer.vacationRemaining)
+//let archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
+////archer.takeVacation(days: 5) we cannot do this
+//print(archer.vacationRemaining)
+
+/// Structs have two properties:
+/// 1. Stored property, where we place a value directly into the struct
+/// 2. Computed property, where we recalculate the value of the property every time it's accessed
+
+struct Employee1 {
+	let name: String
+	var vacationAllocated = 14
+	var vacationTaken = 0
+	
+	var vacationRemaining: Int {
+		get {
+			vacationAllocated - vacationTaken
+		}
+		
+		set {
+			vacationAllocated = vacationTaken + newValue
+		}
+	}
+}
+
+var archer = Employee1(name: "Sterling Archer", vacationAllocated: 14)
+archer.vacationTaken += 4
+archer.vacationRemaining = 5
+print(archer.vacationAllocated)
+
+
+
