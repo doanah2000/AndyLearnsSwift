@@ -1,97 +1,37 @@
 import Cocoa
 
-/// Swifft structs let us create our own complex data types
-
-struct Album {
-	let title: String
-	let artist: String
-	let year: Int
+struct BankAccount {
+	var funds = 0
 	
-	func printSummary() {
-		print("\(title) (\(year)) by \(artist)")
+	mutating func deposit(amount: Int) {
+		funds += amount
 	}
-}
-
-let red = Album(title: "Red", artist: "Taylor Swift", year: 2012)
-
-print(red.title)
-
-red.printSummary()
-
-/// We cannot directly change values in the struct, even if they are variables because there is a chance that if the struct is created as a constant, so will its attributes. Any functions editting data must be marked as mutating
-struct Employee {
-	let name: String
-	var vacationRemaining: Int
 	
-	mutating func takeVacation(days: Int) {
-		if vacationRemaining > days {
-			vacationRemaining -= days
-			print("I'm going on vacation!")
-			print("Days remaining: \(vacationRemaining)")
+	mutating func withdraw(amount: Int) -> Bool {
+		if funds >= amount {
+			funds -= amount
+			return true
 		} else {
-			print("Oops!! There aren't enough days remaining.")
+			return false
 		}
 	}
 }
 
-/// Swift now puts a restriction in place.
-//let archer = Employee(name: "Sterling Archer", vacationRemaining: 14)
-////archer.takeVacation(days: 5) we cannot do this
-//print(archer.vacationRemaining)
+/// The `fund` attribute is public to the world to mess around with. Similar to Java, Swift also has the private keyword to limit access to the methods
+/// within the struct
 
-/// Structs have two properties:
-/// 1. Stored property, where we place a value directly into the struct
-/// 2. Computed property, where we recalculate the value of the property every time it's accessed
-
-struct Employee1 {
-	let name: String
-	var vacationAllocated = 14
-	var vacationTaken = 0
-	
-	var vacationRemaining: Int {
-		get {
-			vacationAllocated - vacationTaken
-		}
-		
-		set {
-			vacationAllocated = vacationTaken + newValue
-		}
+struct Kid {
+	private var age = 14
+	func getAge() -> Int {
+		age
 	}
 }
 
-var archer = Employee1(name: "Sterling Archer", vacationAllocated: 14)
-archer.vacationTaken += 4
-archer.vacationRemaining = 5
-print(archer.vacationAllocated)
+var newKid = Kid()
+//print(newKid.age) inaccessible due to private protection level
+print(newKid.getAge())
 
-/// Swift also has didSet and willSet keywords, which execute when a computed property is changed.
-
-struct App {
-
-	var contacts = [String]() {
-		willSet {
-			print("The old value is \(contacts)")
-			print("The new value will be \(newValue)")
-		}
-		
-		didSet {
-			print("There are now \(contacts.count) contacts")
-			print("The old value was \(oldValue)")
-		}
-	}
-}
-
-var app = App()
-app.contacts.append("Jake")
-
-/// We can create custom initializer, but once we create our custom initializer, by default, Swift gets rid of the default initializer
-
-struct Foo {
-	var bar: Int
-	init(foobar: Int) {
-		self.bar = foobar
-	}
-}
-
-var fooo = Foo(foobar: 2)
-print(fooo.bar)
+/// Use private for "Don't let anything outside this struct to use this"
+/// Use fileprivate for "Don't let anything outside the current file use this"
+/// Use public for "Anyone can use this"
+/// Use private(set) to "let anyone read the property, but only let my methods write it"
