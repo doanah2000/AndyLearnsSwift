@@ -1,49 +1,74 @@
 import Cocoa
 
-struct BankAccount {
-	var funds = 0
+/// Checkpoint 6: Motorcycle information
+/// Create a Struct to store information for a Motorcycle:
+/// - model
+/// - seats
+/// - current gear
+/// Add a method to change gears up and down
+enum GearError: Error {
+	case GearTooHigh, GearTooLow, InvalidShift
+}
+
+enum ShiftDirection {
+	case up, down
+}
+
+struct Motorcycle {
+	private let model: String
+	private let passenger: Bool
+	private let gears: [String] = ["N", "1", "2", "3", "4", "5", "6"]
+	private var currentGearIndex: Int = 0
 	
-	mutating func deposit(amount: Int) {
-		funds += amount
+	init(model: String, passenger: Bool) {
+		self.model = model
+		self.passenger = passenger
 	}
 	
-	mutating func withdraw(amount: Int) -> Bool {
-		if funds >= amount {
-			funds -= amount
-			return true
-		} else {
-			return false
+	func currentGear() -> String {
+		gears[currentGearIndex]
+	}
+	
+	mutating func shiftGears(_ direction: ShiftDirection) throws {
+		switch direction {
+			case ShiftDirection.up:
+				if currentGearIndex < 6 {
+					print("Shifting gears to gear: \(gears[currentGearIndex+1])")
+					currentGearIndex += 1
+				} else {
+					throw GearError.GearTooHigh
+				}
+			case ShiftDirection.down:
+				if currentGearIndex > 0 {
+					print("Shifting gears to gear: \(gears[currentGearIndex-1])")
+					currentGearIndex -= 1
+				} else {
+					throw GearError.GearTooLow
+				}
+			
 		}
+
 	}
 }
 
-/// The `fund` attribute is public to the world to mess around with. Similar to Java, Swift also has the private keyword to limit access to the methods
-/// within the struct
-
-struct Kid {
-	private var age = 14
-	func getAge() -> Int {
-		age
-	}
+var bella = Motorcycle(model: "Eliminator", passenger: false)
+print(bella.currentGear())
+do {
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.up)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+	try bella.shiftGears(.down)
+} catch GearError.GearTooHigh {
+	print("Can't shift any higher. Staying in Gear 6")
+} catch GearError.GearTooLow {
+	print("Can't shift lower. Staying in Gear N")
 }
-
-var newKid = Kid()
-//print(newKid.age) inaccessible due to private protection level
-print(newKid.getAge())
-
-/// Use private for "Don't let anything outside this struct to use this"
-/// Use fileprivate for "Don't let anything outside the current file use this"
-/// Use public for "Anyone can use this"
-/// Use private(set) to "let anyone read the property, but only let my methods write it"
-
-
-/// Sometimes we want to add a property or method to the struct itself, and not an instance of it. We can use the `static` keyword here
-struct School {
-	static let studentCount = 0
-
-	static func add(student: String) {
-		print("\(student) joined the school.")
-		studentCount += 1
-	}
-}
-
