@@ -1,74 +1,30 @@
 import Cocoa
 
-/// Checkpoint 6: Motorcycle information
-/// Create a Struct to store information for a Motorcycle:
-/// - model
-/// - seats
-/// - current gear
-/// Add a method to change gears up and down
-enum GearError: Error {
-	case GearTooHigh, GearTooLow, InvalidShift
-}
+/// Swift uses structs for nearly all built-in types of data. We have a second way using classes.
+/// Similarities:
+/// 	1. We can create and name classes and structs
+/// 	2. We can add properties, methods, property observers, and access control
+/// 	3. We can create custom initializers to configure new instances
+///
+/// Diffffernces:
+///  	1. You can make one class build upon functionality in another class (inheritance)
+///  	2. Swift won't generate a memberwise initializer for classes
+///  	3. If you copy an instance of a class, both copies share the same data
+///  	4. We can add a deinitializzer to run when the final copy is destroyed
+///  	5. Constant class instances can have their variable properties changed
+///
+/// In UIKit, it's very common to have very long inheritance hierarchies, but this is much less common in SwiftUI apps.
+///
+/// Lets create a class. This can also be defined as a struct, but the difference is within the 5 outlined.
 
-enum ShiftDirection {
-	case up, down
-}
-
-struct Motorcycle {
-	private let model: String
-	private let passenger: Bool
-	private let gears: [String] = ["N", "1", "2", "3", "4", "5", "6"]
-	private var currentGearIndex: Int = 0
-	
-	init(model: String, passenger: Bool) {
-		self.model = model
-		self.passenger = passenger
-	}
-	
-	func currentGear() -> String {
-		gears[currentGearIndex]
-	}
-	
-	mutating func shiftGears(_ direction: ShiftDirection) throws {
-		switch direction {
-			case ShiftDirection.up:
-				if currentGearIndex < 6 {
-					print("Shifting gears to gear: \(gears[currentGearIndex+1])")
-					currentGearIndex += 1
-				} else {
-					throw GearError.GearTooHigh
-				}
-			case ShiftDirection.down:
-				if currentGearIndex > 0 {
-					print("Shifting gears to gear: \(gears[currentGearIndex-1])")
-					currentGearIndex -= 1
-				} else {
-					throw GearError.GearTooLow
-				}
-			
+class Game {
+	var score = 0 {
+		didSet {
+			print("Score is now \(score)")
 		}
-
 	}
 }
 
-var bella = Motorcycle(model: "Eliminator", passenger: false)
-print(bella.currentGear())
-do {
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.up)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-	try bella.shiftGears(.down)
-} catch GearError.GearTooHigh {
-	print("Can't shift any higher. Staying in Gear 6")
-} catch GearError.GearTooLow {
-	print("Can't shift lower. Staying in Gear N")
-}
+var newGame = Game()
+newGame.score += 10
+
