@@ -138,3 +138,14 @@ for i in 1...3 {
 print("Loop is finished")
 users.removeAll()
 print("Array is clear.")
+
+
+/// Every copy of a class instance is a pointer to an actual class object. When we create a constant class object, the variables are still mutable.
+
+class Paul {
+	var name = "Paul"
+}
+
+let paul = Paul()
+paul.name = "Taylor"
+print(paul.name)
