@@ -106,3 +106,35 @@ user2.username = "Taylor"
 
 print(user1.username)
 print(user2.username)
+
+/// Swift's classes can optionally be  given a deinitializer.
+/// 1. We don't use func with deinitializers
+/// 2. Deinitializers naver take parameters or return data.
+/// 3. Deinitializers run when the last copy of the class instance is destroyed
+/// 4. Deinitializers are not called directly
+/// 5. Structs do not have deinitializers
+
+class UserNew {
+	let id: Int
+	
+	init(id: Int) {
+		self.id = id
+		print("User \(id): I'm alive!")
+	}
+	
+	deinit { // No parameters
+		print("User \(id): I'm dead!")
+	}
+}
+
+var users = [UserNew]()
+
+for i in 1...3 {
+	let user = UserNew(id: i)
+	print("User \(user.id); I'm in control!")
+	users.append(user)
+}
+
+print("Loop is finished")
+users.removeAll()
+print("Array is clear.")
