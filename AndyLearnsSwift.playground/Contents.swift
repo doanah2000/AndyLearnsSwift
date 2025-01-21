@@ -93,3 +93,16 @@ class Car: Vehicle {
 }
 
 let teslaX = Car(isElectric: true, isConvertible: false)
+
+/// All copies of a class instance point to the same piece of data. Classes are called Reference types, which don't hold its own value but reffer to some shared data.. Structs do not share data among copies.
+
+class User {
+	var username = "Anonymous"
+}
+
+var user1 = User()
+var user2 = user1
+user2.username = "Taylor"
+
+print(user1.username)
+print(user2.username)
