@@ -1,151 +1,84 @@
 import Cocoa
 
-/// Swift uses structs for nearly all built-in types of data. We have a second way using classes.
-/// Similarities:
-/// 	1. We can create and name classes and structs
-/// 	2. We can add properties, methods, property observers, and access control
-/// 	3. We can create custom initializers to configure new instances
-///
-/// Diffffernces:
-///  	1. You can make one class build upon functionality in another class (inheritance)
-///  	2. Swift won't generate a memberwise initializer for classes
-///  	3. If you copy an instance of a class, both copies share the same data
-///  	4. We can add a deinitializzer to run when the final copy is destroyed
-///  	5. Constant class instances can have their variable properties changed
-///
-/// In UIKit, it's very common to have very long inheritance hierarchies, but this is much less common in SwiftUI apps.
-///
-/// Lets create a class. This can also be defined as a struct, but the difference is within the 5 outlined.
+/// Checkpoint 7: Make a class hierarchy for animals - Animal, Dog, Cat, Corgi, Poodle, Persian, Lion
+/// 1. Animal class should have a legs integer property that tracks how many legs an animal has.
+/// 2. Dog class should have a speak method, but each of the subclasses should print something different
+/// 3. Cat class should have a matching speak() method.
+/// 4. Cat class should have isTame provided using an initializer
 
-class Game {
-	var score = 0 {
-		didSet {
-			print("Score is now \(score)")
-		}
-	}
-}
-
-var newGame = Game()
-newGame.score += 10
-
-/// Swift lets us create classes by basing them on existing classes (Inheritance). The new class gets the properties and methods from the superclass, and can add customizations and change functionalities for the new class behavior.
-/// Both classes below are able to use the parent initializer and refer to the hours constant without explicitly redefining them in the class.
-/// If a child class wants to change a superclass's method, we must use the `override` keyword in the child class's method definition
-/// 1. If we attempt to change a method without using `override`, Swift will not build our code, stopping us from accidentally overriding a method
-/// 2. If we use override on a method but the method doesn't override anything from the parent class, Swift will refuse to build, because there may be a mistake or typo.
-/// If the overrided function has a diffferent return type from the parent, there is no override needed, as Swift can see the two same named functions are different based on return type (similar to operator overloading)
-/// If we don't want our class to support inheritance, we can mark the class as `final`
-
-class Employee {
-	let hours: Int
+class Animal {
+	var legs: Int
 	
-	init(hours: Int) {
-		self.hours = hours
+	init(legs: Int) {
+		self.legs = legs
 	}
 	
-	func printSummary() {
-		print("I work \(hours) hours a day..")
+	func speak() {
+		print("I am an animal")
 	}
 }
 
-final class Developer: Employee {
-	func work() {
-		print("I'm writing code for \(hours) hours.")
-	}
-	
-	override func printSummary() {
-		print("I'm a developer who will sometimes work \(hours) hours a day, but other times will spend hours arguing about whether code should be indented using tabs or spaces.")
-	}
-}
+class Dog: Animal {}
 
-final class Manager: Employee {
-	func work() {
-		print("I'm going to meetings for \(hours) hours.")
-	}
-}
-
-let robert = Developer(hours: 8)
-let joseph = Manager(hours: 10)
-robert.work()
-joseph.work()
-
-let novall = Developer(hours: 8)
-novall.printSummary()
-
-/// Class initializers are a bit more complicated than struct initializers.
-/// If a child has any custom initializers, it must always call the parent initializers after setting up its own properties. Swift will not automatically make us a member-wise initializer with classes.
-
-class Vehicle {
-	let isElectric: Bool
-	
-	init(isElectric: Bool) {
-		self.isElectric = isElectric
-	}
-}
-
-class Car: Vehicle {
-	let isConvertible: Bool
-	
-	init(isElectric: Bool, isConvertible: Bool) {
-		self.isConvertible = isConvertible
-		super.init(isElectric: isElectric)
-	}
-}
-
-let teslaX = Car(isElectric: true, isConvertible: false)
-
-/// All copies of a class instance point to the same piece of data. Classes are called Reference types, which don't hold its own value but reffer to some shared data.. Structs do not share data among copies.
-
-class User {
-	var username = "Anonymous"
-}
-
-var user1 = User()
-var user2 = user1
-user2.username = "Taylor"
-
-print(user1.username)
-print(user2.username)
-
-/// Swift's classes can optionally be  given a deinitializer.
-/// 1. We don't use func with deinitializers
-/// 2. Deinitializers naver take parameters or return data.
-/// 3. Deinitializers run when the last copy of the class instance is destroyed
-/// 4. Deinitializers are not called directly
-/// 5. Structs do not have deinitializers
-
-class UserNew {
-	let id: Int
-	
-	init(id: Int) {
-		self.id = id
-		print("User \(id): I'm alive!")
+class Corgi: Dog {
+	init() {
+		super.init(legs: 4)
 	}
 	
-	deinit { // No parameters
-		print("User \(id): I'm dead!")
+	override func speak() {
+		print("Yap")
 	}
 }
 
-var users = [UserNew]()
-
-for i in 1...3 {
-	let user = UserNew(id: i)
-	print("User \(user.id); I'm in control!")
-	users.append(user)
+class Poodle: Dog {
+	init() {
+		super.init(legs: 4)
+	}
+	
+	override func speak() {
+		print("Arf")
+	}
 }
 
-print("Loop is finished")
-users.removeAll()
-print("Array is clear.")
-
-
-/// Every copy of a class instance is a pointer to an actual class object. When we create a constant class object, the variables are still mutable.
-
-class Paul {
-	var name = "Paul"
+class Cat: Animal {
+	let isTame: Bool
+	init(legs: Int, isTame: Bool) {
+		self.isTame = isTame
+		super.init(legs: legs)
+	}
 }
 
-let paul = Paul()
-paul.name = "Taylor"
-print(paul.name)
+class Persian: Cat {
+	init() {
+		super.init(legs: 4, isTame: true)
+	}
+	
+	override func speak() {
+		print("Purrrr")
+	}
+}
+
+class Lion: Cat {
+	init() {
+		super.init(legs: 4, isTame: false)
+	}
+	
+	override func speak() {
+		print("Purrrrrrrr")
+	}
+}
+
+let genericAnimal: Animal = Animal(legs: 6)
+let dog: Dog = Dog(legs: 4)
+let corgi: Corgi = Corgi()
+let poodle: Poodle = Poodle()
+let cat: Cat = Cat(legs: 4, isTame: true)
+let persian: Persian = Persian()
+let lion: Lion = Lion()
+
+let animalArray: [Animal] = [genericAnimal, dog, corgi, poodle, cat, persian, lion]
+for animal in animalArray {
+	print("This is the \(type(of: animal))")
+	animal.speak()
+}
+
