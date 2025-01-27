@@ -1,84 +1,37 @@
 import Cocoa
 
-/// Checkpoint 7: Make a class hierarchy for animals - Animal, Dog, Cat, Corgi, Poodle, Persian, Lion
-/// 1. Animal class should have a legs integer property that tracks how many legs an animal has.
-/// 2. Dog class should have a speak method, but each of the subclasses should print something different
-/// 3. Cat class should have a matching speak() method.
-/// 4. Cat class should have isTame provided using an initializer
+/// Protocols are like contracts for our Swift code.
+/// They let us define what kind of functionality we expect our types to support and Swift will ensure those types add the required functionality
 
-class Animal {
-	var legs: Int
-	
-	init(legs: Int) {
-		self.legs = legs
-	}
-	
-	func speak() {
-		print("I am an animal")
-	}
+/// To create a protocol:
+/// 1. Use `protocol` keyword followed by protocol name in camel case.
+/// 2. Inside protocol, listall methods we require in order for the protocol to function as we expect
+/// 3. Methods are simply declared, not defined
+protocol Vehicle {
+	func estimateTime(for distance: Int) -> Int
+	func travel(distance: Int)
 }
 
-class Dog: Animal {}
-
-class Corgi: Dog {
-	init() {
-		super.init(legs: 4)
+struct Car: Vehicle {
+	func estimateTime(for distance: Int) -> Int {
+		distance / 50
 	}
 	
-	override func speak() {
-		print("Yap")
-	}
-}
-
-class Poodle: Dog {
-	init() {
-		super.init(legs: 4)
+	func travel(distance: Int) {
+		print("I'm driving \(distance)km")
 	}
 	
-	override func speak() {
-		print("Arf")
+	func openSunroof() {
+		print("It's a nice day!")
 	}
 }
 
-class Cat: Animal {
-	let isTame: Bool
-	init(legs: Int, isTame: Bool) {
-		self.isTame = isTame
-		super.init(legs: legs)
-	}
-}
-
-class Persian: Cat {
-	init() {
-		super.init(legs: 4, isTame: true)
+struct Bicycle: Vehicle {
+	func estimateTime(for distance: Int) -> Int {
+		distance/10
 	}
 	
-	override func speak() {
-		print("Purrrr")
+	func travel(distance: Int) {
+		print("I'm riding \(distance)km")
 	}
 }
-
-class Lion: Cat {
-	init() {
-		super.init(legs: 4, isTame: false)
-	}
-	
-	override func speak() {
-		print("Purrrrrrrr")
-	}
-}
-
-let genericAnimal: Animal = Animal(legs: 6)
-let dog: Dog = Dog(legs: 4)
-let corgi: Corgi = Corgi()
-let poodle: Poodle = Poodle()
-let cat: Cat = Cat(legs: 4, isTame: true)
-let persian: Persian = Persian()
-let lion: Lion = Lion()
-
-let animalArray: [Animal] = [genericAnimal, dog, corgi, poodle, cat, persian, lion]
-for animal in animalArray {
-	print("This is the \(type(of: animal))")
-	animal.speak()
-}
-
